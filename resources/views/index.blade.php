@@ -5,7 +5,7 @@
         @foreach($items as $product)
         <table style="width: 70%; border: solid 1px;">
             <tr>
-                <td><img style="width: 100px; height: 100px;" src="{{asset('storage/images/' . $product->image)}}">
+                <td><img style="width: 100px; height: 100px;" src="{{Storage::disk('public')->url('images/' . $product->image)}}">
                 </td>
                 <td>
                     <h3>{{$product->title}}</h3>
@@ -13,14 +13,14 @@
                     <p>{{$product->price}}$</p>
                 </td>
                 <td>
-                    <a href="{{route('add-cart', [$product->id])}}">{{__('Add')}}</a>
+                    <a href="{{route('cart.store', [$product->id])}}">{{__('Add')}}</a>
                 </td>
             </tr>
         </table>
         @endforeach
         @endif
         <div style="margin: 5px;">
-            <a href="{{route('cart')}}">{{__('Go to cart')}}</a>
+            <a href="{{route('cart.show')}}">{{__('Go to cart')}}</a>
         </div>
     </div>
 @endsection

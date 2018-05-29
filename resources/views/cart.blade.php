@@ -2,31 +2,32 @@
 @section('content')
     <div style="margin: 5% 35% 5% 35%;">
         <div>
-            @if(isset($_GET['mail']))
-                <h4>{{__('Thanks for contacting us.')}}</h4>
-            @endif
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
             @foreach($items as $product)
                 <table style="width: 70%; border: solid 1px;">
                     <tr>
                         <td><img style="width: 100px; height: 100px;"
-                                 src="{{asset('storage/images/' . $product->image)}}  "></td>
+                                 src="{{Storage::disk('public')->url('images/' . $product->image)}}  "></td>
                         <td>
                             <h3>{{$product->title}}</h3>
                             <p>{{$product->description}}</p>
                             <p>{{$product->price}}$</p>
                         </td>
                         <td>
-                            <a href="{{route('remove', ['id' => $product->id])}}">{{__('Remove')}}</a>
+                            <a href="{{route('cart.delete',$product->id)}}">{{__('Remove')}}</a>
                         </td>
                     </tr>
                 </table>
             @endforeach
         </div>
         <div style="margin: 5px;">
-            <a name="to-index" href=" {{route('index')}}">{{__('Go to index')}} </a>
-            <a name="remove-all" href="{{route('remove-all')}}">{{__('Remove all')}}</a>
+            <a name="to-index" href=" {{route('cart.index')}}">{{__('Go to index')}} </a>
+            <a name="remove-all" href="{{route('cart.destroy')}}">{{__('Remove all')}}</a>
         </div>
-        <form method="post" action="{{route('cart')}}" enctype="multipart/form-data">
+        <form method="post" action="{{route('cart.email')}}">
+            {{csrf_field()}}
             <div style="margin: 5px;">
                 <input type="text" name="email" placeholder="{{__('Email')}}" value=""/>
             </div>

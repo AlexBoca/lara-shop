@@ -4,12 +4,12 @@
 
 <header>
     <div>
-        <a href="{{route('index')}}">{{__('Home')}}</a>
-        <a href="{{route('cart')}}">{{ __('Cart')}}</a>
+        <a href="{{route('cart.index')}}">{{__('Home')}}</a>
+        <a href="{{route('cart.show')}}">{{ __('Cart')}}</a>
         <a href="{{route('login')}}">{{__('Login')}}</a>
-        @if(isset($_SESSION['user_login']))
-        <a href="{{route('product.create')}}">{{ __('Create')}}</a>
-        <a href="{{route('products')}}">{{__('Products')}}</a>
+        @if(session('user_login'))
+        <a href="{{route('products.create')}}">{{ __('Create')}}</a>
+        <a href="{{route('products.index')}}">{{__('Products')}}</a>
         @endif
     </div>
 </header>

@@ -1,59 +1,42 @@
 @extends('app')
 @section('content')
-    @php
-        if (isset($_SESSION['old']['title'])) {
-
-            $title = oldData('title');
-        } else {
-            $title = isset($product) ? strip_tags($product->title) : '';
-        }
-        if (isset($_SESSION['old']['description'])) {
-            $description = oldData('description');
-        } else {
-            $description = isset($product) ? strip_tags($product->description) : '';
-        }
-        if (isset($_SESSION['old']['price'])) {
-            $price = oldData('price');
-        } else {
-            $price = isset($product) ? strip_tags($product->price) : '';
-        }
-    @endphp
     <div style="margin: 5% 35% 5% 35%">
-        @if(isset($_SESSION['errors']) && !empty($_SESSION['errors']))
-            @foreach ($_SESSION['errors'] as $name => $value)
-                <p>@php(flash($name))</p>
-            @endforeach
-        @endif
-        @if (isset($product))
-            @php($action = route('product.update', $product->id))
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        @isset($product)
+            @php($action = route('products.update', $product->id))
         @else
-            @php($action = route('product.create'))
-        @endif
+            @php($action = route('products.store'))
+        @endisset
 
         <form method="post" action="{{$action}}" enctype="multipart/form-data">
             {{csrf_field()}}
             <div style="margin: 5px;">
-                <input type="text" name="title" placeholder="{{__('Title')}}" value="{{$title}}"/>
+                <input type="text" name="title" placeholder="{{__('Title')}}"
+                       value="{{old('title', $product->title ?? '')}}"/>
             </div>
             <div style="margin: 5px;">
-                <textarea name="description" placeholder="{{__('Description')}}">{{$description}}</textarea>
+                <textarea name="description"
+                          placeholder="{{__('Description')}}">{{old('description', $product->description ?? '')}}</textarea>
             </div>
             <div style="margin: 5px;">
-                <input type="text" name="price" placeholder="{{__('Price')}}" value="{{$price}}"/>
+                <input type="text" name="price" placeholder="{{__('Price')}}"
+                       value="{{old('price', $product->price ?? '')}}"/>
             </div>
-            @if (isset($product->image))
+            @isset($product->image)
                 <div>
-                    <img style="width: 80px; height: 80px;" src="{{  asset('storage/images/' . $product->image)  }} ">
+                    <img style="width: 80px; height: 80px;"
+                         src="{{Storage::disk('public')->url('images/' . $product->image)}} ">
                 </div>
-                @endif
+            @endisset
             <div style="margin: 5px;">
                 <input type="hidden" name="size" value="1000000">
-                <input type="file" name="image" id="image"
-                       value="@php((isset($product) ? strip_tags($product->image) : ''))  "/>
+                <input type="file" name="image" id="image"/>
             </div>
             <button name="submit" type="submit">{{__('Save')}}</button>
         </form>
-        <a href="{{route('products')}}">{{__('Products')}}</a>
+        <a href="{{route('products.index')}}">{{__('Products')}}</a>
     </div>
 @endsection
 

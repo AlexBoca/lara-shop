@@ -1,14 +1,14 @@
 @extends('app')
 @section('content')
     <div id="content" style="margin: 5% 35% 5% 35%;">
-        @if(isset($_GET['error']) == 'login')
-            <p>{{'Sorry but Username and password don`t match!'}}</p>
-            @if(isset($_SESSION['user_login']))
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        @if(session('user_login'))
                 <p>{{'You are logged in!'}}</p>
-            @endif
             <a href="<?= route('logout') ?>"><?= __('Logout') ?></a>
         @else
-            <form method="post" action="{{route('login-user')}}">
+            <form method="post" action="{{route('login.user')}}">
                 {{csrf_field()}}
                 <div style="margin: 5px;">
                     <label>{{__('Username')}}</label>

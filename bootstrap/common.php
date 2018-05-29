@@ -137,7 +137,6 @@ function productValidation()
     }
     return $is_error;
 }
-
 function uploadImage()
 {
     if (!isset($_FILES['image']) || empty($_FILES['image'])) {
