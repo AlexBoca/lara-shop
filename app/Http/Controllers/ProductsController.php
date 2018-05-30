@@ -27,7 +27,7 @@ class ProductsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $product = new Product($validateData);
         $product->image = $this->uploadImage($request->image);
@@ -60,7 +60,7 @@ class ProductsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $product = Product::findOrFail($id);
         $product->fill($validateData);
