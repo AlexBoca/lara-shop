@@ -5,7 +5,7 @@
             <li>{{ $error }}</li>
         @endforeach
         @if(session('user_login'))
-                <p>{{'You are logged in!'}}</p>
+            <p>{{'You are logged in!'}}</p>
             <a href="<?= route('logout') ?>"><?= __('Logout') ?></a>
         @else
             <form method="post" action="{{route('login.user')}}">

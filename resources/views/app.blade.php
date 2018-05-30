@@ -7,8 +7,8 @@
         <a href="{{route('cart.show')}}">{{ __('Cart')}}</a>
         <a href="{{route('login')}}">{{__('Login')}}</a>
         @if(session('user_login'))
-        <a href="{{route('products.create')}}">{{ __('Create')}}</a>
-        <a href="{{route('products.index')}}">{{__('Products')}}</a>
+            <a href="{{route('products.create')}}">{{ __('Create')}}</a>
+            <a href="{{route('products.index')}}">{{__('Products')}}</a>
         @endif
     </div>
 </header>

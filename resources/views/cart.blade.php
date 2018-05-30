@@ -8,8 +8,10 @@
             @foreach($items as $product)
                 <table style="width: 70%; border: solid 1px;">
                     <tr>
-                        <td><img style="width: 100px; height: 100px;"
-                                 src="{{Storage::disk('public')->url( $product->image)}}  "/></td>
+                        <td>
+                            <img style="width: 100px; height: 100px;"
+                                 src="{{Storage::disk('public')->url( $product->image)}}  "/>
+                        </td>
                         <td>
                             <h3>{{$product->title}}</h3>
                             <p>{{$product->description}}</p>

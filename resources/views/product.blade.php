@@ -9,7 +9,6 @@
         @else
             @php($action = route('products.store'))
         @endisset
-
         <form method="post" action="{{$action}}" enctype="multipart/form-data">
             {{csrf_field()}}
             <div style="margin: 5px;">
@@ -26,8 +25,7 @@
             </div>
             @isset($product->image)
                 <div>
-                    <img style="width: 80px; height: 80px;"
-                         src="{{Storage::disk('public')->url( $product->image)}} "/>
+                    <img style="width: 80px; height: 80px;" src="{{Storage::disk('public')->url( $product->image)}} "/>
                 </div>
             @endisset
             <div style="margin: 5px;">

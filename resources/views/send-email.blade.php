@@ -1,4 +1,3 @@
-
 <html>
 <body>
 <title>{{__('Shop')}}</title>
@@ -12,7 +11,9 @@
     @foreach ($order['cart'] as $product)
         <table style="width: 70%; border: solid 1px;">
             <tr>
-                <td><img style="width: 100px; height: 100px;" src="{{Storage::disk('public')->url( $product->image)}}"/></td>
+                <td>
+                    <img style="width: 100px; height: 100px;" src="{{Storage::disk('public')->url( $product->image)}}"/>
+                </td>
                 <td>{{$product->title}}</td>
                 <td>{{$product->description}}</td>
                 <td>{{$product->price}}$</td>
