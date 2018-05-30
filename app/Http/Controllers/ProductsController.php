@@ -32,14 +32,13 @@ class ProductsController extends Controller
         $product = new Product($validateData);
         $product->image = $this->uploadImage($request->image);
         $product->save();
-        return redirect()->back();
+        return redirect()->route('products.index');
     }
 
     function uploadImage($image)
     {
-        $imageName = 'images/' . time() . '.' . $image->getClientOriginalExtension();
+        $imageName = 'images/' . md5(date('Y-m-d H:i:s')) . '.' . $image->getClientOriginalExtension();
         $image->move(storage_path('app/public/images'), $imageName);
-
         return $imageName;
     }
 

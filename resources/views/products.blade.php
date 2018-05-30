@@ -7,7 +7,7 @@
                     <tr>
                         <td>
                             <img style="width: 100px; height: 100px;"
-                                 src=" {{Storage::disk('public')->url( $product->image)}}">
+                                 src="{{Storage::disk('public')->url( $product->image)}}">
                         </td>
                         <td>
                             <h3>{{$product->title}}</h3>
