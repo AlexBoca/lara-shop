@@ -8,18 +8,34 @@ use \Storage;
 
 class ProductsController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
+
         $items = Product::all();
         return view('products', compact('items'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return view('product');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -37,10 +53,17 @@ class ProductsController extends Controller
     function uploadImage($image)
     {
         $imageName = 'images/' . time() . '.' . $image->getClientOriginalExtension();
-        $image->move(Storage::disk('public')->path($imageName));
+        $image->move(storage_path('app/public/images'), $imageName);
+
         return $imageName;
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
@@ -48,6 +71,13 @@ class ProductsController extends Controller
         return view('product', compact('product'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         if (!session('user_login')) {
@@ -63,7 +93,7 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         $product->fill($validateData);
         if ($request->has('image')) {
-            Storage::disk('public')->delete('images/' . $product->image);
+            \Storage::disk('public')->delete('images/' . $product->image);
             $product->image = $this->uploadImage($request->image);
         }
         $product->save();
@@ -71,13 +101,19 @@ class ProductsController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         if (!session('user_login')) {
             return redirect()->route('products');
         }
         $product = Product::findOrFail($id);
-        Storage::disk('public')->delete('images/' . $product->image);
+        \Storage::disk('public')->delete('images/' . $product->image);
         Product::destroy($id);
         return redirect()->back();
     }

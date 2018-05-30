@@ -27,7 +27,7 @@
             @isset($product->image)
                 <div>
                     <img style="width: 80px; height: 80px;"
-                         src="{{Storage::disk('public')->url('images/' . $product->image)}} "/>
+                         src="{{Storage::disk('public')->url( $product->image)}} "/>
                 </div>
             @endisset
             <div style="margin: 5px;">
