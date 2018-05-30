@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-
 <header>
     <div>
         <a href="{{route('cart.index')}}">{{__('Home')}}</a>

@@ -27,11 +27,11 @@
             @isset($product->image)
                 <div>
                     <img style="width: 80px; height: 80px;"
-                         src="{{Storage::disk('public')->url('images/' . $product->image)}} ">
+                         src="{{Storage::disk('public')->url('images/' . $product->image)}} "/>
                 </div>
             @endisset
             <div style="margin: 5px;">
-                <input type="hidden" name="size" value="1000000">
+                <input type="hidden" name="size" value="1000000"/>
                 <input type="file" name="image" id="image"/>
             </div>
             <button name="submit" type="submit">{{__('Save')}}</button>
